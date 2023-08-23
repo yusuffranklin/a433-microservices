@@ -1,0 +1,54 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  #tag: '$(Build.BuildId)'
+  tag: 'latest'
+
+stages:
+# Lint Dockerfile
+- stage: Lint Dockerfile
+  displayName: Lint Dockerfile
+  jobs:
+  - job: Lint-Dockerfile
+    displayName: Lint-Dockerfile
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
+    - task: CmdLine@2
+      inputs:
+        script: 'docker run --rm -i hadolint/hadolint < Dockerfile'
+        workingDirectory: '$(Build.SourcesDirectory)'
+# Test
+- stage: Test
+  displayName: Test
+  jobs:
+  - job: Test
+    displayName: Test
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Go@0
+      inputs:
+        command: 'test'
+        arguments: '-v -short --count=1 $(go list ./...)'
+        workingDirectory: '$(Build.SourcesDirectory)'
+# Build and Push Docker Image  
+- stage: Build Image
+  displayName: Build Image
+  jobs:
+  - job: Build-Image
+    displayName: Build Image
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Bash@3
+      inputs:
+        filePath: '/build_push_image_karsajobs.sh'
+        workingDirectory: '$(Build.SourcesDirectory)'
