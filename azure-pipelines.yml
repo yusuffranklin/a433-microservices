@@ -1,0 +1,23 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  #tag: '$(Build.BuildId)'
+  tag: 'latest'
+
+stages:
+# Build and Push Docker Image  
+- stage: Build Image
+  displayName: Build Image
+  jobs:
+  - job: Build-Image
+    displayName: Build Image
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Bash@3
+      inputs:
+        filePath: '/build_push_image_karsajobs_ui.sh'
