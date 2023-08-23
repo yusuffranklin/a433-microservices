@@ -9,6 +9,22 @@ variables:
   tag: 'latest'
 
 stages:
+# Lint Dockerfile
+- stage: Lint Dockerfile
+  displayName: Lint Dockerfile
+  jobs:
+  - job: Lint-Dockerfile
+    displayName: Lint-Dockerfile
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
+    - task: CmdLine@2
+      inputs:
+        script: 'docker run --rm -i hadolint/hadolint < Dockerfile'
+        workingDirectory: '$(Build.SourcesDirectory)'
 # Build and Push Docker Image  
 - stage: Build Image
   displayName: Build Image
