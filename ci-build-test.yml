@@ -1,0 +1,20 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  #tag: '$(Build.BuildId)'
+  tag: 'latest'
+
+stages:
+# Build and Push Docker Image  
+- stage: Build
+  displayName: Build Image
+  jobs:
+  - job: Build
+    displayName: Build Image
+    pool:
+      vmImage: ubuntu-latest
+    steps:
