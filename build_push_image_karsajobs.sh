@@ -4,7 +4,7 @@
 sudo docker build -t yusuffranklin/karsajobs:latest .
 
 # login ke Docker Hub via terminal
-sudo docker login
+echo $PASSWORD | sudo docker login -u yusuffranklin --password-stdin
 
 # push docker container ke repository Docker Hub
 sudo docker push yusuffranklin/karsajobs:latest
