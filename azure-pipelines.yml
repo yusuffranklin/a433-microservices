@@ -41,7 +41,7 @@ stages:
       inputs:
         command: 'test'
         arguments: '-v'
-        workingDirectory: '$(Build.SourcesDirectory)'
+        workingDirectory: '$(Build.SourcesDirectory)/cmd/web'
 # Build and Push Docker Image  
 - stage: Build_Image
   displayName: Build Image
