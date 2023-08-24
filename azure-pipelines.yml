@@ -50,5 +50,5 @@ stages:
     steps:
     - task: Bash@3
       inputs:
-        filePath: '/build_push_image_karsajobs.sh'
+        filePath: './build_push_image_karsajobs.sh'
         workingDirectory: '$(Build.SourcesDirectory)'
