@@ -10,8 +10,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Bash@3
-  displayName: Deploy to Kubernetes
+- task: CopyFiles@2
   inputs:
-    filePath: './kubernetes-deploy.sh'
-    workingDirectory: '$(Build.SourcesDirectory)'
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/*.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'manifests'
+    publishLocation: 'Container'
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'current'
+    artifactName: 'manifests'
+    itemPattern: '**/*.yaml'
+    targetPath: '$(System.ArtifactsDirectory)'
