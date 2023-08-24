@@ -26,10 +26,10 @@ stages:
         script: 'docker run --rm -i hadolint/hadolint < Dockerfile'
         workingDirectory: '$(Build.SourcesDirectory)'
 # Build and Push Docker Image  
-- stage: Build Image
+- stage: Build_Image
   displayName: Build Image
   jobs:
-  - job: Build-Image
+  - job: Build_Image
     displayName: Build Image
     pool:
       vmImage: ubuntu-latest
