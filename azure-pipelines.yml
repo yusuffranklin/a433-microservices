@@ -10,11 +10,11 @@ variables:
 
 stages:
 # Lint Dockerfile
-- stage: Lint Dockerfile
-  displayName: Lint Dockerfile
+- stage: Lint_Dockerfile
+  displayName: Lint_Dockerfile
   jobs:
-  - job: Lint-Dockerfile
-    displayName: Lint-Dockerfile
+  - job: Lint_Dockerfile
+    displayName: Lint_Dockerfile
     pool:
       vmImage: ubuntu-latest
     steps:
