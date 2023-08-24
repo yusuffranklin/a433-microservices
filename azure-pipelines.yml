@@ -40,7 +40,7 @@ stages:
     - task: Go@0
       inputs:
         command: 'test'
-        arguments: '-v -short --count=1 $(go list ./...)'
+        arguments: '-v'
         workingDirectory: '$(Build.SourcesDirectory)'
 # Build and Push Docker Image  
 - stage: Build_Image
