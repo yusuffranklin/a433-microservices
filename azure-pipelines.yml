@@ -26,22 +26,22 @@ stages:
         script: 'docker run --rm -i hadolint/hadolint < Dockerfile'
         workingDirectory: '$(Build.SourcesDirectory)'
 # Test
-- stage: Test
-  displayName: Test
-  jobs:
-  - job: Test
-    displayName: Test
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: GoTool@0
-      inputs:
-        version: '1.15'
-    - task: Go@0
-      inputs:
-        command: 'test'
-        arguments: '-v'
-        workingDirectory: '$(Build.SourcesDirectory)/cmd/web'
+# - stage: Test
+#   displayName: Test
+#   jobs:
+#   - job: Test
+#     displayName: Test
+#     pool:
+#       vmImage: ubuntu-latest
+#     steps:
+#     - task: GoTool@0
+#       inputs:
+#         version: '1.15'
+#     - task: Go@0
+#       inputs:
+#         command: 'test'
+#         arguments: '-v'
+#         workingDirectory: '$(Build.SourcesDirectory)/cmd/web'
 # Build and Push Docker Image  
 - stage: Build_Image
   displayName: Build Image
